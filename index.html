@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Max, vývojář z Plzně. AI boti, weby, automatizace a hry v Unity.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Max Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: radio receiver. Hero = tuner dial, each project is a frequency. Then live Relay router demo, then index + contact. */
+:root{
+  --bg:#E8E5DF; --panel:#F4F2EE; --ink:#1B1A17; --muted:#5E5A52; --line:#CBC6BC;
+  --accent:#9A5400; --amber:#F2A30F; --ok:#2FA36B; --on-amber:#1B1A17; --led:#E8461C;
+  --rx-bg:#F4F2EE; --rx-panel:#ECE9E3; --rx-ink:#1B1A17; --rx-muted:#5E5A52; --rx-line:#D6D1C7;
+  --site-bg:#111110; --site-card:#1A1917; --site-ink:#EDEAE4; --site-muted:#A39E94; --site-gold:#E4C08A;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121110; --panel:#1C1A17; --ink:#ECE7DD; --muted:#A39C8E; --line:#302C26; --accent:#F2A30F; --rx-bg:#1A1815; --rx-panel:#22201B; --rx-ink:#ECE7DD; --rx-muted:#A39C8E; --rx-line:#302C26; color-scheme:dark }}
+:root[data-theme="dark"]{ --bg:#121110; --panel:#1C1A17; --ink:#ECE7DD; --muted:#A39C8E; --line:#302C26; --accent:#F2A30F; --rx-bg:#1A1815; --rx-panel:#22201B; --rx-ink:#ECE7DD; --rx-muted:#A39C8E; --rx-line:#302C26; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* top bar */
+.top{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;padding-block:20px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em}
+.top-right{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lang button{font:500 13px var(--mono);background:transparent;color:var(--muted);border:0;padding:8px 12px;min-height:36px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* hero */
+.hero{padding-block:56px 32px;display:grid;gap:20px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(44px,8.4vw,104px);line-height:.92;letter-spacing:-.035em;margin:0;text-wrap:balance;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{margin:0;max-width:54ch;font-size:18px;color:var(--muted)}
+
+/* receiver */
+.receiver{background:var(--rx-bg);color:var(--rx-ink);border:1px solid var(--rx-line);border-radius:16px;padding:22px;display:grid;gap:20px;margin-bottom:72px;--muted:var(--rx-muted);--line:var(--rx-line);--ink:var(--rx-ink);--panel:var(--rx-panel)}
+.howto{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--rx-muted)}
+.howto b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--amber);color:var(--on-amber);font:600 12px var(--mono);margin-right:6px}
+.stations{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}
+.st{display:grid;gap:2px;text-align:left;background:transparent;color:var(--rx-ink);border:1px solid var(--rx-line);border-radius:10px;padding:10px 14px;min-height:56px;cursor:pointer;font:inherit;transition:border-color .2s, background .2s}
+.st:hover{border-color:var(--rx-muted)}
+.st .sf{font:500 12px var(--mono);color:var(--rx-muted)}
+.st .sn{font-weight:600;font-size:15px}
+.st.active{background:var(--amber);border-color:var(--amber);color:var(--on-amber)}
+.st.active .sf{color:var(--on-amber)}
+
+
+/* browser window preview */
+.browser{grid-column:1 / -1;border:1px solid var(--rx-line);border-radius:12px;overflow:hidden;background:var(--site-bg);text-decoration:none;display:block;transition:transform .25s}
+.browser:hover{transform:translateY(-3px)}
+.bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--rx-panel);border-bottom:1px solid var(--rx-line)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--rx-line)}
+.url{flex:1;min-width:0;font:400 13px var(--mono);color:var(--rx-muted);background:var(--rx-bg);border-radius:6px;padding:5px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.site{padding:22px;display:grid;gap:18px;color:var(--site-ink);font-family:Inter, var(--body)}
+.site-nav{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--site-muted)}
+.site-nav b{font-family:var(--display);font-size:16px;color:var(--site-ink)}
+.site-nav b span{color:var(--site-gold)}
+.site h4{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,44px);line-height:.95;letter-spacing:-.03em}
+.site-btns{display:flex;flex-wrap:wrap;gap:8px}
+.site-btns span{font-size:12px;font-weight:600;padding:8px 14px;border-radius:999px;background:var(--site-gold);color:var(--site-bg)}
+.site-btns span+span{background:transparent;color:var(--site-ink);border:1px solid #3A3833}
+.site-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:8px}
+.site-grid div{background:var(--site-card);border-radius:10px;padding:12px;display:grid;gap:4px;font-size:13px}
+.site-grid em{font-style:normal;color:var(--site-gold);font-weight:600}
+.site-chat{display:grid;gap:6px;max-width:300px}
+.site-chat span{font-size:12px;padding:7px 11px;border-radius:12px 12px 12px 3px;background:var(--site-card);justify-self:start}
+.site-chat span.me{background:var(--site-gold);color:var(--site-bg);border-radius:12px 12px 3px 12px;justify-self:end}
+.readout{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between}
+.freq{font-family:var(--mono);font-weight:500;font-size:clamp(48px,9vw,88px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.freq small{font-size:.28em;color:var(--muted);margin-left:8px;letter-spacing:0}
+.sig{display:flex;align-items:center;gap:10px}
+.led{width:10px;height:10px;border-radius:50%;background:var(--line);transition:background .2s}
+.led.on{background:var(--led);box-shadow:0 0 0 4px color-mix(in srgb, var(--led) 22%, transparent)}
+
+.dial{position:relative;padding-top:30px}
+.scale{height:44px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:
+   repeating-linear-gradient(90deg, var(--muted) 0 1px, transparent 1px calc(100%/25)) top/100% 14px no-repeat,
+   repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px calc(100%/125)) top/100% 8px no-repeat}
+.chan{color:var(--rx-muted);position:absolute;top:0;transform:translateX(-50%);font:500 12px var(--mono);color:var(--muted);background:transparent;border:0;padding:4px 6px;cursor:pointer;white-space:nowrap}
+.chan.active{color:var(--accent)}
+.chan::after{content:"";position:absolute;left:50%;top:26px;width:2px;height:22px;background:currentColor;transform:translateX(-50%)}
+.needle{position:absolute;top:22px;bottom:-4px;width:2px;background:var(--led);transform:translateX(-50%);pointer-events:none;transition:left .08s linear}
+.needle::before{content:"";position:absolute;left:50%;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--led);transform:translateX(-50%)}
+#tuner{width:100%;margin:14px 0 0;accent-color:var(--amber);height:28px;cursor:grab}
+.tune-row{display:flex;gap:8px;align-items:center}
+.tune-row button{font:500 14px var(--mono);background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:6px;min-width:44px;min-height:44px;cursor:pointer}
+.tune-row button:hover{border-color:var(--ink)}
+
+.station{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px 40px;border-top:1px dashed var(--line);padding-top:20px;min-height:180px}
+.station h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,40px);line-height:1.02;letter-spacing:-.02em;margin:6px 0 10px;text-wrap:balance}
+.station p{margin:0;max-width:52ch}
+.station .side{display:grid;gap:14px;align-content:start;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:400 13px var(--mono);border:1px solid var(--line);border-radius:4px;padding:3px 8px;color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:8px;justify-self:start;font-weight:600;text-decoration:none;background:var(--amber);color:var(--on-amber);padding:12px 18px;border-radius:6px;min-height:44px}
+.cta:hover{filter:brightness(1.08)}
+.note{font-size:14px;color:var(--muted)}
+.static{font-family:var(--mono);color:var(--muted);align-self:center}
+
+/* sections */
+section.block{padding-block:56px;border-top:1px solid var(--line)}
+.sec-head{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;margin-bottom:28px}
+.sec-head h2{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,52px);letter-spacing:-.03em;line-height:1;margin:0}
+.sec-head p{margin:0;color:var(--muted);max-width:46ch}
+
+/* relay sim */
+.sim{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px}
+.sim-in{display:grid;gap:12px;align-content:start;min-width:0}
+.sim-in form{display:flex;gap:8px}
+.sim-in input{flex:1;min-width:0;font:400 16px var(--body);color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;min-height:48px}
+.sim-in input:focus{border-color:var(--accent);outline:none}
+.btn{font:600 15px var(--body);background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:0 18px;min-height:48px;cursor:pointer}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font:400 14px var(--body);background:transparent;color:var(--ink);border:1px dashed var(--line);border-radius:6px;padding:8px 10px;cursor:pointer;min-height:40px;text-align:left}
+.presets button:hover{border-style:solid;border-color:var(--ink)}
+.route{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px;min-width:0}
+.msg{font-size:15px;padding:10px 14px;border-radius:12px 12px 4px 12px;background:var(--amber);color:var(--on-amber);justify-self:end;max-width:90%;overflow-wrap:anywhere}
+.router{font:500 13px var(--mono);color:var(--muted);display:flex;align-items:center;gap:8px}
+.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.agent{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;transition:all .25s;display:grid;gap:2px}
+.agent .k{font:400 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.agent.hit{border-color:var(--amber);background:color-mix(in srgb, var(--amber) 22%, transparent);transform:translateY(-2px)}
+.reply{font-size:15px;padding:10px 14px;border-radius:12px 12px 12px 4px;background:var(--bg);border:1px solid var(--line);max-width:90%}
+.disclaimer{font-size:13px;color:var(--muted);margin:0}
+
+/* index */
+.index{border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:8px 20px;align-items:baseline;padding:18px 4px;border-bottom:1px solid var(--line);cursor:pointer;background:transparent;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;color:var(--ink);font:inherit}
+.row:hover,.row.active{background:var(--panel)}
+.row .f{font-family:var(--mono);color:var(--accent)}
+.row .t{font-family:var(--display);font-weight:500;font-size:22px;letter-spacing:-.01em}
+.row .k{font-size:14px;color:var(--muted);text-align:right}
+@media (max-width:560px){.row{grid-template-columns:70px minmax(0,1fr)}.row .k{grid-column:2;text-align:left}}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px}
+.skills h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 8px}
+.skills p{margin:0 0 12px;color:var(--muted)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px}
+.card .v{font-family:var(--mono);font-size:17px;overflow-wrap:anywhere;user-select:all}
+.copy{justify-self:start;font:500 13px var(--mono);background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 12px;min-height:40px;cursor:pointer}
+footer{padding-block:28px 40px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;color:var(--muted);font-size:14px}
+
+
+/* motion + extra sections */
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--amber);transform-origin:0 50%;transform:scaleX(0);z-index:20;pointer-events:none}
+.avail{display:inline-flex;align-items:center;gap:10px;font:500 13px var(--mono);color:var(--muted)}
+.avail i{width:9px;height:9px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent)}70%,100%{box-shadow:0 0 0 10px transparent}}
+.hero > *{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero > *:nth-child(2){animation-delay:.08s}.hero > *:nth-child(3){animation-delay:.16s}.hero > *:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.b-amber,.b-line{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;text-decoration:none;padding:14px 22px;border-radius:999px;min-height:48px;transition:transform .2s}
+.b-amber{background:var(--amber);color:var(--on-amber)}
+.b-line{border:1.5px solid var(--ink);color:var(--ink)}
+.b-amber:hover,.b-line:hover{transform:translateY(-2px)}
+.b-amber .ar{transition:transform .2s}.b-amber:hover .ar{transform:translateY(3px)}
+.band{color:var(--ink);border-block:1px solid var(--line);overflow:hidden;padding-block:16px;margin:24px 0 56px}
+.band-track{display:flex;width:max-content;animation:marq 30s linear infinite}
+.band span{font:500 clamp(20px,3vw,32px)/1 var(--display);letter-spacing:-.02em;white-space:nowrap;padding-right:.6em}
+.band span b{color:var(--accent);padding-left:.6em}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+.rv.pre{opacity:0;transform:translateY(44px)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:24px}
+.step{border-top:2px solid var(--line);padding-top:18px;position:relative}
+.step::before{content:"";position:absolute;left:0;top:-2px;height:2px;width:100%;background:var(--amber);transform:scaleX(0);transform-origin:0 50%;transition:transform 1s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--d,0s) + .25s)}
+.step.in::before{transform:scaleX(1)}
+.step .n{font:500 13px var(--mono);color:var(--muted)}
+.step h3{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.01em;margin:8px 0 6px}
+.step p{margin:0;color:var(--muted)}
+.skill{background:transparent;border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;transition:transform .3s, border-color .3s}
+.skill:hover{transform:translateY(-4px);border-color:var(--ink)}
+.ico{width:44px;height:44px;border-radius:10px;border:1px solid var(--line);color:var(--accent);display:grid;place-items:center;transition:transform .4s}
+.skill:hover .ico{transform:rotate(-8deg) scale(1.06)}
+.ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.row{transition:padding .25s, background .2s}
+.row:hover{padding-left:16px}
+.row .k .ar{display:inline-block;margin-left:10px;color:var(--accent);transition:transform .25s}
+.row:hover .k .ar{transform:translateX(6px)}
+.big-cta{font-family:var(--display);font-weight:800;font-size:clamp(52px,11vw,132px);line-height:.9;letter-spacing:-.04em;margin:0 0 32px;text-wrap:balance}
+.big-cta span{background:linear-gradient(var(--amber),var(--amber)) 0 88%/0% 18% no-repeat;transition:background-size 1.1s cubic-bezier(.2,.7,.2,1) .3s}
+.big-cta.in span{background-size:100% 18%}
+.card{transition:transform .25s, border-color .25s}.card:hover{transform:translateY(-3px);border-color:var(--ink)}
+.rv.rv.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+@media (prefers-reduced-motion: reduce){*,*::before{animation:none!important;transition:none!important}.rv.pre{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Max<span style="color:var(--amber)">.</span></div>
+    <div class="top-right">
+      <span class="label"><span id="clock">--:--</span> · Plzeň</span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-cs" aria-pressed="true">CZ</button>
+        <button type="button" id="lang-en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="label" data-t="eyebrow">Vývojář · Plzeň, CZ</div>
+    <h1 data-t="h1" data-html="1">Stavím <em>AI boty</em>, weby a hry.</h1>
+    <p data-t="lead">Automatizace pro firmy, které nechtějí odpovídat na stejné dotazy pořád dokola. A ve volném čase hry v Unity.</p>
+    <div class="hero-cta">
+      <a class="b-amber" href="#projekty"><span data-t="ctaWork">Moje projekty</span><span class="ar">↓</span></a>
+      <a class="b-line" href="#kontakt" data-t="ctaTalk">Napište mi</a>
+    </div>
+  </section>
+</div>
+
+<div class="band" aria-hidden="true"><div class="band-track" id="band"></div></div>
+
+<div class="wrap" id="projekty">
+
+  <div class="receiver rv" aria-label="Project tuner">
+    <div class="howto">
+      <span><b>1</b><span data-t="how1">Vyber projekt tlačítkem níže</span></span>
+      <span><b>2</b><span data-t="how2">nebo táhni ručičku po stupnici</span></span>
+      <span><b>3</b><span data-t="how3">když se rozsvítí kontrolka, máš signál</span></span>
+    </div>
+    <div class="stations" id="stations" role="group" aria-label="Projects"></div>
+    <div class="readout">
+      <div>
+        <div class="label" data-t="tuneLabel">Nalaď projekt</div>
+        <div class="freq"><span id="freq">101.2</span><small>MHz</small></div>
+      </div>
+      <div class="sig"><span class="led" id="led"></span><span class="label" id="sigtext">signal</span></div>
+    </div>
+    <div class="dial" id="dial">
+      <div class="scale" aria-hidden="true"></div>
+      <div class="needle" id="needle" aria-hidden="true"></div>
+    </div>
+    <div class="tune-row">
+      <button type="button" id="prev" aria-label="Previous project">◀</button>
+      <input type="range" id="tuner" min="1000" max="1250" step="1" value="1012" aria-label="Frequency">
+      <button type="button" id="next" aria-label="Next project">▶</button>
+    </div>
+    <div class="station" id="station" aria-live="polite"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="block">
+    <div class="sec-head rv">
+      <h2 data-t="simTitle">Jak Relay přemýšlí</h2>
+      <p data-t="simLead">Napiš zprávu a podívej se, kterému agentovi ji router předá.</p>
+    </div>
+    <div class="sim rv" style="--d:.1s">
+      <div class="sim-in">
+        <form id="simform">
+          <label for="simtext" class="label" style="position:absolute;left:-9999px" data-t="simInputLabel">Zpráva</label>
+          <input id="simtext" autocomplete="off" placeholder="Proč mi padá Unity build?">
+          <button class="btn" type="submit" data-t="send">Poslat</button>
+        </form>
+        <div class="presets" id="presets"></div>
+        <p class="disclaimer" data-t="simNote">Zjednodušená ukázka routingu přímo v prohlížeči. Skutečný Relay rozhoduje přes jazykový model.</p>
+      </div>
+      <div class="route">
+        <div class="msg" id="simmsg"></div>
+        <div class="router"><span class="led on" style="width:8px;height:8px"></span><span data-t="router">router</span> → <span id="simagent" class="mono"></span></div>
+        <div class="agents" id="agents"></div>
+        <div class="reply" id="simreply"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head rv">
+      <h2 data-t="allTitle">Všechny frekvence</h2>
+      <p data-t="allLead">Klikni na řádek a přijímač se naladí.</p>
+    </div>
+    <div class="index" id="index"></div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head rv"><h2 data-t="whatTitle">Co pro vás udělám</h2></div>
+    <div class="skills" id="skills"></div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head rv">
+      <h2 data-t="procTitle">Jak to probíhá</h2>
+      <p data-t="procLead">Čtyři kroky od první zprávy po hotovou věc.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv" style="--d:0s"><span class="n">01</span><h3 data-t="p1t">Napíšete mi</h3><p data-t="p1d">Popíšete, co potřebujete. Stačí pár vět.</p></div>
+      <div class="step rv" style="--d:.12s"><span class="n">02</span><h3 data-t="p2t">Návrh a cena</h3><p data-t="p2d">Pošlu, jak bych to řešil a kolik to bude stát. Ještě než cokoli zaplatíte.</p></div>
+      <div class="step rv" style="--d:.24s"><span class="n">03</span><h3 data-t="p3t">Vývoj</h3><p data-t="p3d">Průběžně ukazuji, jak práce postupuje, a zapracuji vaše připomínky.</p></div>
+      <div class="step rv" style="--d:.36s"><span class="n">04</span><h3 data-t="p4t">Spuštění</h3><p data-t="p4d">Nasadím to, vysvětlím obsluhu a pomůžu s dalšími úpravami.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="kontakt">
+    <h2 class="big-cta rv" id="bigcta"><span data-t="contactTitle">Napište mi.</span></h2>
+    <div class="contact rv" style="--d:.15s">
+      <div class="card"><span class="label">Instagram</span><a class="v" id="c-ig" href="https://www.instagram.com/kortiqin" target="_blank" rel="noopener" style="color:inherit">@kortiqin</a><button class="copy" type="button" data-copy="c-ig" data-t="copy">Kopírovat</button></div>
+      <div class="card"><span class="label">E-mail</span><span class="v" id="c-mail">strikerestripe@gmail.com</span><button class="copy" type="button" data-copy="c-mail" data-t="copy">Kopírovat</button></div>
+      <div class="card"><span class="label">GitHub</span><a class="v" id="c-gh" href="https://github.com/maxxxximusz" target="_blank" rel="noopener" style="color:inherit">github.com/maxxxximusz</a><button class="copy" type="button" data-copy="c-gh" data-t="copy">Kopírovat</button></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Max</span>
+    <span data-t="foot">Python · Node.js · C# · Unity · Claude API</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var T = {
+    cs:{eyebrow:"Vývojář · Plzeň, CZ",h1:"Stavím <em>AI boty</em>, weby a hry.",lead:"Automatizace pro firmy, které nechtějí odpovídat na stejné dotazy pořád dokola. A ve volném čase hry v Unity.",tuneLabel:"Nalaď projekt",simTitle:"Jak Relay přemýšlí",simLead:"Napiš zprávu a podívej se, kterému agentovi ji router předá.",simInputLabel:"Zpráva",send:"Poslat",simNote:"Zjednodušená ukázka routingu přímo v prohlížeči. Skutečný Relay rozhoduje přes jazykový model.",router:"router",allTitle:"Všechny frekvence",allLead:"Klikni na řádek a přijímač se naladí.",whatTitle:"Co pro vás udělám",contactTitle:"Napište mi.",contactLead:"Odpovídám většinou do 24 hodin.",copy:"Kopírovat",copied:"Zkopírováno",foot:"Python · Node.js · C# · Unity · Claude API",signal:"signál",noise:"šum",placeholder:"Proč mi padá Unity build?",open:"Otevřít",stack:"Technologie",how1:"Vyber projekt tlačítkem níže",how2:"nebo táhni ručičku po stupnici",how3:"když se rozsvítí kontrolka, máš signál",live:"Živá ukázka webu, klikni a otevře se celý",ctaWork:"Moje projekty",ctaTalk:"Napište mi",avail:"Beru nové zakázky",band:["AI BOTI","WEBY","AUTOMATIZACE","UNITY HRY"],procTitle:"Jak to probíhá",procLead:"Čtyři kroky od první zprávy po hotovou věc.",p1t:"Napíšete mi",p1d:"Popíšete, co potřebujete. Stačí pár vět.",p2t:"Návrh a cena",p2d:"Pošlu, jak bych to řešil a kolik to bude stát. Ještě než cokoli zaplatíte.",p3t:"Vývoj",p3d:"Průběžně ukazuji, jak práce postupuje, a zapracuji vaše připomínky.",p4t:"Spuštění",p4d:"Nasadím to, vysvětlím obsluhu a pomůžu s dalšími úpravami."},
+    en:{eyebrow:"Developer · Plzeň, CZ",h1:"I build <em>AI bots</em>, websites and games.",lead:"Automation for businesses tired of answering the same questions over and over. And Unity games in my spare time.",tuneLabel:"Tune in a project",simTitle:"How Relay thinks",simLead:"Type a message and see which agent the router hands it to.",simInputLabel:"Message",send:"Send",simNote:"A simplified routing demo running in your browser. The real Relay decides with a language model.",router:"router",allTitle:"All frequencies",allLead:"Click a row and the receiver tunes in.",whatTitle:"What I can build for you",contactTitle:"Let's talk.",contactLead:"I usually reply within 24 hours.",copy:"Copy",copied:"Copied",foot:"Python · Node.js · C# · Unity · Claude API",signal:"signal",noise:"static",placeholder:"Why does my Unity build crash?",open:"Open",stack:"Stack",how1:"Pick a project with the buttons below",how2:"or drag the needle along the scale",how3:"when the light turns on, you have a signal",live:"Live website preview, click to open the full site",ctaWork:"My projects",ctaTalk:"Get in touch",avail:"Open for new projects",band:["AI BOTS","WEBSITES","AUTOMATION","UNITY GAMES"],procTitle:"How it works",procLead:"Four steps from the first message to a finished product.",p1t:"You message me",p1d:"Tell me what you need. A few sentences are enough.",p2t:"Plan and price",p2d:"I send how I would build it and what it costs. Before you pay anything.",p3t:"Build",p3d:"You see progress along the way, and I work your feedback in.",p4t:"Launch",p4d:"I deploy it, show you how to use it and help with changes later."}
+  };
+  var P = [
+    {f:101.2, stack:["Python","Claude API","PostgreSQL","Railway"],
+     cs:{short:"AI asistent",kind:"AI bot pro firmy",title:"AI asistent pro zákazníky",desc:"Bot, který odpovídá zákazníkům 24/7, i když nikdo není u telefonu. Rozumí běžným dotazům, pamatuje si historii konverzace a odpovídá přirozeně, ne podle šablony.",note:"Ukázku pošlu na vyžádání."},
+     en:{short:"AI assistant",kind:"AI bot for business",title:"AI Customer Assistant",desc:"A bot that answers customers 24/7, even when nobody is available. It understands common questions, remembers conversation history and replies naturally instead of using canned answers.",note:"Demo available on request."}},
+    {f:107.4, stack:["Python","Anthropic SDK","Multi-agent","Telegram"],
+     cs:{short:"Relay",kind:"Multi-agentní bot",title:"Relay: tým AI agentů v jednom chatu",desc:"Píšeš jednomu botovi, pracuje celý tým. Relay pozná, co potřebuješ, a předá úkol správnému agentovi: učení, gamedev, research, reporty nebo psychická podpora. Když pozná únavu, sám navrhne pauzu.",cta:"Vyzkoušet @relayfree_bot"},
+     en:{short:"Relay",kind:"Multi-agent bot",title:"Relay: a team of AI agents in one chat",desc:"You text one bot, a whole team does the work. Relay figures out what you need and routes the task to the right agent: studying, gamedev, research, reports or emotional support. If it notices you're tired, it suggests a break.",cta:"Try @relayfree_bot"}},
+    {f:113.8, preview:true, stack:["HTML","CSS","JavaScript","Booking bot"], link:"barber.html",
+     cs:{short:"Web pro barbershop",kind:"Web + rezervace",title:"Ostře Barber: demo web",desc:"Ukázkový web pro fiktivní barbershop v Plzni s rezervačním botem přímo na stránce. Přesně takový web můžu postavit vašemu podniku, s vašimi službami a skutečným botem.",cta:"Otevřít demo"},
+     en:{short:"Barbershop website",kind:"Website + booking",title:"Ostře Barber: demo site",desc:"A demo website for a fictional barbershop in Plzeň with a booking bot built right into the page. I can build the same for your business, with your services and a real bot.",cta:"Open demo"}},
+    {f:121.5, stack:["Unity 6","C#","Photon PUN 2","Blender"],
+     cs:{short:"Frequency 121.5",kind:"Hra · ve vývoji",title:"Frequency 121.5",desc:"PSX horor z Alp pro více hráčů. Pilot po havárii, rozbitá vysílačka a něco, co poslouchá na nouzové frekvenci. Vyvíjím společně s Nikitou: multiplayer, interakce, inventář a systémy hry.",note:"Trailer brzy."},
+     en:{short:"Frequency 121.5",kind:"Game · in development",title:"Frequency 121.5",desc:"A multiplayer PSX horror set in the Alps. A crashed pilot, a broken radio and something listening on the emergency frequency. Co-developed with Nikita: multiplayer, interactions, inventory and game systems.",note:"Trailer coming soon."}}
+  ];
+  var AGENTS = [
+    {id:"study", cs:"Učení", en:"Study", kw:["uč","vysvětl","derivac","matik","test","škol","homework","explain","math","learn","exam","study"],
+     rcs:"Vysvětlím to krok po kroku a na konci dám 3 příklady na procvičení.", ren:"I'll explain it step by step and finish with 3 practice problems."},
+    {id:"gamedev", cs:"Gamedev", en:"Gamedev", kw:["unity","unreal","build","shader","hra","game","c#","prefab","fps","bug","padá","crash"],
+     rcs:"Pošli mi Editor.log. Nejčastější příčina je chybějící reference nebo platformní skript.", ren:"Send me your Editor.log. The usual cause is a missing reference or a platform-specific script."},
+    {id:"support", cs:"Podpora", en:"Support", kw:["unaven","smutn","stres","nemůžu","vyčerp","tired","sad","stress","burn","exhaust","anxious"],
+     rcs:"Zní to, že toho máš hodně. Co kdybys dal 10 minut pauzu? Úkoly počkají.", ren:"Sounds like a lot. How about a 10 minute break? The tasks can wait."},
+    {id:"reports", cs:"Reporty", en:"Reports", kw:["report","shrn","souhrn","týden","tabul","summary","summar","week","table","recap"],
+     rcs:"Shrnu tvůj týden do 5 bodů: co je hotové, co se zaseklo a co dál.", ren:"I'll sum up your week in 5 points: what's done, what's stuck and what's next."},
+    {id:"research", cs:"Research", en:"Research", kw:["najdi","porovn","který","nejlepší","find","compare","which","best","search","research"],
+     rcs:"Projdu zdroje a vrátím srovnání s odkazy.", ren:"I'll go through sources and come back with a comparison and links."}
+  ];
+  var PRESETS = {
+    cs:["Vysvětli mi derivace","Proč mi padá Unity build?","Jsem dneska fakt unavený","Udělej report z týdne","Najdi nejlepší hosting pro bota"],
+    en:["Explain derivatives to me","Why does my Unity build crash?","I'm really tired today","Make a report of my week","Find the best hosting for a bot"]
+  };
+
+  var lang = "cs";
+  try{ var s = localStorage.getItem("mx-lang"); if(s==="en"||s==="cs") lang=s; }catch(e){}
+  var cur = 0, simIdx = 1;
+
+  var $ = function(id){return document.getElementById(id)};
+  var tuner=$("tuner"), needle=$("needle"), dial=$("dial"), freq=$("freq"), led=$("led"), sigtext=$("sigtext"), station=$("station");
+  var MIN=100, MAX=125;
+  function pct(f){return (f-MIN)/(MAX-MIN)*100}
+
+  // channel markers
+  P.forEach(function(p,i){
+    var b=document.createElement("button"); b.type="button"; b.className="chan"; b.style.left=pct(p.f)+"%";
+    b.textContent=p.f.toFixed(1); b.setAttribute("aria-label","Tune "+p.f.toFixed(1));
+    b.addEventListener("click",function(){ tuneTo(i) });
+    dial.appendChild(b);
+  });
+
+  function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
+
+  function renderStation(i){
+    if(i<0){ station.innerHTML='<div class="static">~ ~ ~ '+esc(T[lang].noise)+' ~ ~ ~</div>'; return; }
+    var p=P[i], c=p[lang];
+    var html='<div><div class="label">'+esc(c.kind)+'</div><h2>'+esc(c.title)+'</h2><p>'+esc(c.desc)+'</p></div>'+
+      '<div class="side"><div class="label">'+esc(T[lang].stack)+'</div><div class="chips">'+
+      p.stack.map(function(s){return '<span class="chip">'+esc(s)+'</span>'}).join("")+'</div>';
+    if(p.link) html+='<a class="cta" href="'+p.link+'" target="_blank" rel="noopener">'+esc(c.cta)+' ↗</a>';
+    if(c.note) html+='<span class="note">'+esc(c.note)+'</span>';
+    html+='</div>';
+    if(p.preview){
+      var cz=lang==="cs";
+      html+='<a class="browser" href="'+p.link+'" target="_blank" rel="noopener" aria-label="'+esc(T[lang].live)+'">'+
+        '<div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">ostre-barber.cz · demo</span><span class="label" style="color:var(--rx-muted)">↗</span></div>'+
+        '<div class="site" aria-hidden="true">'+
+        '<div class="site-nav"><b>OSTŘE<span>.</span></b><span>'+(cz?'Služby · Rezervace · Kontakt':'Services · Booking · Contact')+'</span></div>'+
+        '<h4>'+(cz?'Střih, který sedí.':'A cut that fits.')+'</h4>'+
+        '<div class="site-btns"><span>'+(cz?'Rezervovat termín':'Book a slot')+'</span><span>'+(cz?'Ceník':'Prices')+'</span></div>'+
+        '<div class="site-grid"><div>'+(cz?'Střih':'Haircut')+'<em>450 Kč</em></div><div>'+(cz?'Úprava vousů':'Beard trim')+'<em>300 Kč</em></div><div>'+(cz?'Střih + vousy':'Cut + beard')+'<em>650 Kč</em></div></div>'+
+        '<div class="site-chat"><span>'+(cz?'Ahoj! Na co se chceš objednat?':'Hi! What would you like to book?')+'</span><span class="me">'+(cz?'Střih + vousy':'Cut + beard')+'</span><span>'+(cz?'Super. Který den ti vyhovuje?':'Great. Which day works for you?')+'</span></div>'+
+        '</div></a>'+
+        '<span class="note" style="grid-column:1/-1">'+esc(T[lang].live)+'</span>';
+    }
+    station.innerHTML=html;
+  }
+
+  function nearest(f){var best=-1,d=99;P.forEach(function(p,i){var x=Math.abs(p.f-f);if(x<d){d=x;best=i}});return {i:best,d:d}}
+
+  function update(f, snap){
+    var n=nearest(f), locked=n.d<=0.8;
+    if(snap && locked){ f=P[n.i].f; tuner.value=Math.round(f*10); }
+    freq.textContent=f.toFixed(1);
+    needle.style.left=pct(f)+"%";
+    led.classList.toggle("on",locked);
+    sigtext.textContent=locked?T[lang].signal:T[lang].noise;
+    var idx=locked?n.i:-1;
+    if(idx!==cur || snap==="force"){ cur=idx; renderStation(idx); markActive(); }
+  }
+  function renderStations(){
+    var box=$("stations"); box.innerHTML="";
+    P.forEach(function(p,i){
+      var b=document.createElement("button"); b.type="button"; b.className="st";
+      b.innerHTML='<span class="sf">'+p.f.toFixed(1)+' MHz</span><span class="sn">'+esc(p[lang].short)+'</span>';
+      b.addEventListener("click",function(){tuneTo(i)});
+      box.appendChild(b);
+    });
+  }
+  function markActive(){
+    document.querySelectorAll(".st").forEach(function(b,i){b.classList.toggle("active",i===cur);b.setAttribute("aria-pressed",i===cur)});
+    document.querySelectorAll(".chan").forEach(function(b,i){b.classList.toggle("active",i===cur)});
+    document.querySelectorAll(".row").forEach(function(r,i){r.classList.toggle("active",i===cur)});
+  }
+  function tuneTo(i){
+    var from=parseFloat(tuner.value)/10, to=P[i].f, t0=performance.now(), dur=matchMedia("(prefers-reduced-motion: reduce)").matches?0:420;
+    function step(now){
+      var k=dur?Math.min(1,(now-t0)/dur):1, e=1-Math.pow(1-k,3), f=from+(to-from)*e;
+      tuner.value=Math.round(f*10); update(f,false);
+      if(k<1) requestAnimationFrame(step); else update(to,true);
+    }
+    requestAnimationFrame(step);
+  }
+  tuner.addEventListener("input",function(){update(tuner.value/10,false)});
+  tuner.addEventListener("change",function(){update(tuner.value/10,true)});
+  $("prev").addEventListener("click",function(){var i=cur<0?nearest(tuner.value/10).i:cur;tuneTo((i-1+P.length)%P.length)});
+  $("next").addEventListener("click",function(){var i=cur<0?nearest(tuner.value/10).i:cur;tuneTo((i+1)%P.length)});
+
+  // index
+  function renderIndex(){
+    var box=$("index"); box.innerHTML="";
+    P.forEach(function(p,i){
+      var b=document.createElement("button"); b.type="button"; b.className="row rv"; b.style.setProperty("--d",(i*0.07)+"s");
+      b.innerHTML='<span class="f">'+p.f.toFixed(1)+'</span><span class="t">'+esc(p[lang].title)+'</span><span class="k">'+esc(p[lang].kind)+'<span class="ar" aria-hidden="true">→</span></span>';
+      b.addEventListener("click",function(){ tuneTo(i); document.querySelector(".receiver").scrollIntoView({behavior:"smooth",block:"center"}); });
+      box.appendChild(b);
+    });
+    markActive();
+  }
+
+  // skills
+  var ICO={
+    bot:'<path d="M4 5h16v11H9l-5 4z"/><circle cx="9" cy="10.5" r=".6"/><circle cx="15" cy="10.5" r=".6"/>',
+    web:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
+    auto:'<path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/>',
+    game:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".6"/><circle cx="18" cy="14" r=".6"/>'
+  };
+  var SK={
+    cs:[["bot","AI boti","Chatboti pro Telegram a weby, kteří odpovídají zákazníkům, berou rezervace a posílají připomínky."],["web","Weby","Rychlé weby na jednu stránku pro kavárny, barbershopy a služby. Fungují na mobilu."],["auto","Automatizace","Propojím vaše nástroje (n8n, API), aby se nudná práce dělala sama."],["game","Hry v Unity","3D, fyzika, multiplayer. Prototypy i vlastní projekty."]],
+    en:[["bot","AI bots","Chatbots for Telegram and websites that answer customers, take bookings and send reminders."],["web","Websites","Fast one-page sites for cafés, barbershops and services. Built for mobile."],["auto","Automation","I connect your tools (n8n, APIs) so the boring work runs itself."],["game","Unity games","3D, physics, multiplayer. Prototypes and my own projects."]]
+  };
+  function renderSkills(){ $("skills").innerHTML=SK[lang].map(function(s,i){return '<div class="skill rv" style="--d:'+(i*0.08)+'s"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICO[s[0]]+'</svg></span><h3>'+esc(s[1])+'</h3><p>'+esc(s[2])+'</p></div>'}).join("") }
+
+  // relay sim
+  function classify(text){
+    var t=text.toLowerCase(), best=null, score=0;
+    AGENTS.forEach(function(a){var sc=0;a.kw.forEach(function(k){if(t.indexOf(k)>-1)sc++});if(sc>score){score=sc;best=a}});
+    return best||AGENTS[4];
+  }
+  function runSim(text){
+    var a=classify(text);
+    $("simmsg").textContent=text;
+    $("simagent").textContent=a[lang];
+    $("agents").innerHTML=AGENTS.map(function(x){return '<div class="agent'+(x===a?' hit':'')+'"><span class="k">agent</span>'+esc(x[lang])+'</div>'}).join("");
+    $("simreply").textContent=lang==="cs"?a.rcs:a.ren;
+  }
+  function renderPresets(){
+    var box=$("presets"); box.innerHTML="";
+    PRESETS[lang].forEach(function(p,i){
+      var b=document.createElement("button"); b.type="button"; b.textContent=p;
+      b.addEventListener("click",function(){simIdx=i;$("simtext").value="";runSim(p)});
+      box.appendChild(b);
+    });
+  }
+  $("simform").addEventListener("submit",function(e){e.preventDefault();var v=$("simtext").value.trim();if(v){simIdx=-1;runSim(v);$("simtext").value=""}});
+
+  // copy
+  document.querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var el=$(b.getAttribute("data-copy")), txt=el.textContent;
+      function ok(){b.textContent=T[lang].copied;setTimeout(function(){b.textContent=T[lang].copy},1400)}
+      function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+      try{ navigator.clipboard.writeText(txt).then(ok,fallback) }catch(e){ fallback() }
+    });
+  });
+
+  // clock
+  function tick(){try{$("clock").textContent=new Intl.DateTimeFormat("cs-CZ",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Prague"}).format(new Date())}catch(e){}}
+  tick(); setInterval(tick,15000);
+
+  // language
+  function setLang(l){
+    lang=l; try{localStorage.setItem("mx-lang",l)}catch(e){}
+    document.documentElement.lang=l;
+    $("lang-cs").setAttribute("aria-pressed",l==="cs"); $("lang-en").setAttribute("aria-pressed",l==="en");
+    document.querySelectorAll("[data-t]").forEach(function(el){var v=T[l][el.getAttribute("data-t")];if(v==null)return;if(el.getAttribute("data-html"))el.innerHTML=v;else el.textContent=v});
+    $("simtext").placeholder=T[l].placeholder;
+    renderStations(); renderIndex(); renderSkills(); renderPresets();
+    var w=T[l].band.map(function(x){return '<span>'+esc(x)+'<b>•</b></span>'}).join("");
+    $("band").innerHTML=w+w+w+w;
+    runSim(simIdx>=0?PRESETS[l][simIdx]:$("simmsg").textContent);
+    update(tuner.value/10,"force");
+  }
+  $("lang-cs").addEventListener("click",function(){setLang("cs")});
+  $("lang-en").addEventListener("click",function(){setLang("en")});
+
+  setLang(lang);
+
+  // sweep the dial once, then lock onto Relay
+  (function scan(){
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ tuneTo(1); return; }
+    var t0, dur=1300;
+    function step(now){
+      if(!t0) t0=now;
+      var k=Math.min(1,(now-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2, f=100+25*e;
+      tuner.value=Math.round(f*10); update(f,false);
+      if(k<1) requestAnimationFrame(step); else tuneTo(1);
+    }
+    setTimeout(function(){requestAnimationFrame(step)},500);
+  })();
+
+  var bar=$("progress");
+  function prog(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform="scaleX("+(h>0?Math.min(1,scrollY/h):0)+")"}
+  addEventListener("scroll",prog,{passive:true}); prog();
+
+  if("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.remove("pre");t.classList.add("in");io.unobserve(t);setTimeout(function(){t.classList.remove("rv")},1400)}})},{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+    document.querySelectorAll(".rv, .big-cta").forEach(function(el){
+      if(el.getBoundingClientRect().top>innerHeight*0.95){el.classList.add("pre");io.observe(el)} else {el.classList.add("in");el.classList.remove("rv")}
+    });
+  } else document.querySelectorAll(".rv, .big-cta").forEach(function(el){el.classList.add("in")});
+})();
+</script>
+
+</body>
+</html>

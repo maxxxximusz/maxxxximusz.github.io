@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ostře Barber Plzeň · demo</title>
+<meta name="description" content="Demo web fiktivního barbershopu v Plzni s rezervačním botem. Ukázka práce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111110;--card:#1A1917;--line:#2A2925;--ink:#EDEAE4;--muted:#A39E94;--soft:#B5B0A6;--gold:#E4C08A;--ok:#8FD19E;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.w{max-width:1200px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+header{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;padding-block:24px}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:.02em}
+.logo span,.eyebrow,.price{color:var(--gold)}
+nav{display:flex;flex-wrap:wrap;gap:24px;font-size:15px}
+nav a{color:#C9C4BA;text-decoration:none}
+.hero{padding-block:72px 96px}
+.eyebrow{font-size:14px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(48px,9vw,120px);line-height:.95;margin:0;letter-spacing:-.03em}
+.lead{font-size:19px;line-height:1.6;color:var(--soft);max-width:520px;margin:32px 0 40px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.b1,.b2{text-decoration:none;font-weight:600;padding:16px 28px;border-radius:999px;font-size:16px}
+.b1{background:var(--gold);color:var(--bg)}
+.b2{border:1px solid #3A3833;color:var(--ink);font-weight:500}
+section{padding-block:48px 96px}
+h2{font-family:'Space Grotesk',sans-serif;font-size:40px;margin:0 0 40px;letter-spacing:-.02em}
+.services{display:flex;flex-wrap:wrap;gap:16px}
+.svc{flex:1 1 240px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.svc h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;margin:0}
+.svc p{font-size:15px;color:var(--muted);line-height:1.5;margin:0}
+.svc .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:16px}
+.price{font-size:26px;font-weight:600}
+.dur{font-size:14px;color:var(--muted)}
+.book{display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start}
+.book-text{flex:1 1 320px}
+.book-text p{font-size:17px;line-height:1.6;color:var(--soft);margin:0 0 24px;max-width:420px}
+.book-text ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;color:#C9C4BA}
+.chat{flex:999 1 420px;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.chat-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.ava{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--bg);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700}
+.online{font-size:13px;color:var(--ok)}
+#msgs{padding:22px;display:flex;flex-direction:column;gap:10px;min-height:320px}
+.m{display:flex}.m.me{justify-content:flex-end}
+.m span{padding:12px 16px;max-width:80%;font-size:15px;line-height:1.45;border-radius:18px 18px 18px 4px;background:#26241F;animation:pop .25s ease-out}
+.m.me span{background:var(--gold);color:var(--bg);font-weight:500;border-radius:18px 18px 4px 18px}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+#opts{padding:0 22px 22px;display:flex;flex-wrap:wrap;gap:8px}
+#opts button{background:transparent;color:var(--ink);border:1px solid #4A4740;border-radius:999px;padding:12px 18px;font:inherit;font-size:15px;cursor:pointer;min-height:44px}
+#opts button:hover{border-color:var(--gold)}
+#opts button.reset{background:var(--gold);color:var(--bg);border:0;font-weight:600}
+.info{display:flex;flex-wrap:wrap;gap:16px;padding-block:48px 72px}
+.info div{flex:1 1 260px;border-top:1px solid var(--line);padding-top:24px;font-size:18px;line-height:1.6}
+.info small{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+footer{border-top:1px solid var(--line)}
+footer .w{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-block:28px;font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="w">
+  <header>
+    <div class="logo">OSTŘE<span>.</span></div>
+    <nav><a href="#sluzby">Služby</a><a href="#rezervace">Rezervace</a><a href="#kontakt">Kontakt</a></nav>
+  </header>
+  <div class="hero">
+    <div class="eyebrow">Barbershop · Plzeň</div>
+    <h1>Střih,<br>který sedí.</h1>
+    <p class="lead">Klasika i moderní fade. Objednáš se za 30 vteřin přes našeho bota, bez volání a čekání.</p>
+    <div class="btns"><a class="b1" href="#rezervace">Rezervovat termín</a><a class="b2" href="#sluzby">Ceník</a></div>
+  </div>
+
+  <section id="sluzby">
+    <h2>Služby</h2>
+    <div class="services">
+      <div class="svc"><h3>Střih</h3><p>Konzultace, střih, mytí a styling.</p><div class="row"><span class="price">450 Kč</span><span class="dur">45 min</span></div></div>
+      <div class="svc"><h3>Úprava vousů</h3><p>Tvarování, konturování břitvou, horký ručník.</p><div class="row"><span class="price">300 Kč</span><span class="dur">30 min</span></div></div>
+      <div class="svc"><h3>Střih + vousy</h3><p>Kompletní péče, nejoblíbenější kombinace.</p><div class="row"><span class="price">650 Kč</span><span class="dur">75 min</span></div></div>
+      <div class="svc"><h3>Dětský střih</h3><p>Pro kluky do 12 let.</p><div class="row"><span class="price">350 Kč</span><span class="dur">30 min</span></div></div>
+    </div>
+  </section>
+
+  <section id="rezervace" class="book">
+    <div class="book-text">
+      <h2 style="margin-bottom:20px">Rezervace<br>přes bota</h2>
+      <p>Vyber službu, den a čas. Bot hlídá volné termíny a pošle ti připomínku den předem.</p>
+      <ul><li>✓ Funguje 24/7</li><li>✓ Žádné volání</li><li>✓ Připomínka přes SMS nebo Telegram</li></ul>
+    </div>
+    <div class="chat">
+      <div class="chat-head"><div class="ava">O</div><div><div style="font-weight:600;font-size:15px">Ostře Bot</div><div class="online">online</div></div></div>
+      <div id="msgs" aria-live="polite"></div>
+      <div id="opts"></div>
+    </div>
+  </section>
+
+  <div class="info" id="kontakt">
+    <div><small>Adresa</small>[ULICE A ČÍSLO]<br>Plzeň</div>
+    <div><small>Otevírací doba</small>Po–Pá 9:00–20:00<br>So 9:00–14:00</div>
+    <div><small>Kontakt</small>[TELEFON]<br>[INSTAGRAM]</div>
+  </div>
+</div>
+<footer><div class="w">
+  <span>Demo projekt: fiktivní podnik vytvořený jako ukázka práce.</span>
+  <span>Web &amp; booking bot: <a href="./">Max</a></span>
+</div></footer>
+
+<script>
+(function(){
+  var S={service:null,day:null,time:null};
+  var services=["Střih","Úprava vousů","Střih + vousy","Dětský střih"];
+  var msgs=document.getElementById("msgs"), opts=document.getElementById("opts");
+  function render(){
+    var list=[["Ahoj! Na co se chceš objednat?",1]];
+    if(S.service){list.push([S.service,0]);list.push(["Super. Který den ti vyhovuje?",1])}
+    if(S.day){list.push([S.day,0]);list.push(["Volné časy na "+S.day.toLowerCase()+":",1])}
+    if(S.time){list.push([S.time,0]);list.push(["Hotovo! "+S.service+", "+S.day.toLowerCase()+" v "+S.time+". Den předem ti pošlu připomínku.",1])}
+    msgs.innerHTML="";
+    list.forEach(function(m){var d=document.createElement("div");d.className="m"+(m[1]?"":" me");var s=document.createElement("span");s.textContent=m[0];d.appendChild(s);msgs.appendChild(d)});
+    opts.innerHTML="";
+    var o=[],key=null;
+    if(!S.service){o=services;key="service"}
+    else if(!S.day){o=["Dnes","Zítra","Pozítří"];key="day"}
+    else if(!S.time){o=["10:00","13:30","16:00","18:30"];key="time"}
+    o.forEach(function(x){var b=document.createElement("button");b.type="button";b.textContent=x;b.onclick=function(){S[key]=x;render()};opts.appendChild(b)});
+    if(S.time){var r=document.createElement("button");r.type="button";r.className="reset";r.textContent="Nová rezervace";r.onclick=function(){S={service:null,day:null,time:null};render()};opts.appendChild(r)}
+  }
+  render();
+})();
+</script>
+</body>
+</html>
